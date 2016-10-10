@@ -1,3 +1,4 @@
+import javax.xml.soap.Node;
 import java.util.Hashtable;
 
 /**
@@ -156,6 +157,7 @@ public class LLClass {
             while (objIterator != null) {
                 if (hstbNode.containsKey(objIterator.GetData())) {
                     objPrevious.SetNext(objIterator.GetNext());
+                    DecrementCounter();
                 } else {
                     hstbNode.put(objIterator.GetData(), true);
                     objPrevious = objIterator;
@@ -163,6 +165,23 @@ public class LLClass {
                 objIterator = objIterator.GetNext();
             }
         }
+    }
+
+    // Reverse the list
+    public void ReverseList() {
+        NodeClass objPrev = null;
+        NodeClass objCurrent = objHeadNode.GetNext();
+        NodeClass objNext;
+
+        // Iterate till current node becomes null
+        while (objCurrent != null) {
+            objNext = objCurrent.GetNext();
+            objCurrent.objNext = objPrev;
+            objPrev = objCurrent;
+            objCurrent = objNext;
+        }
+
+        objHeadNode.SetNext(objPrev);
     }
 
 }
