@@ -1,3 +1,5 @@
+import java.util.Hashtable;
+
 /**
  * Created by ahdeshpande on 10/9/16.
  */
@@ -116,17 +118,14 @@ public class LLClass {
     }
 
     // Insert the Node at the specified Index
-    public void InsertNode(Object objData, int iIndex)
-    {
+    public void InsertNode(Object objData, int iIndex) {
         NodeClass objNode = new NodeClass(objData);
         NodeClass objIterator = objHeadNode;
 
         // Check if not null
-        if(objIterator !=null)
-        {
+        if (objIterator != null) {
             // Iterate to the Index
-            for(int iIterator=0; iIterator<iIndex && objIterator.GetNext()!=null; iIterator++)
-            {
+            for (int iIterator = 0; iIterator < iIndex && objIterator.GetNext() != null; iIterator++) {
                 objIterator = objIterator.GetNext();
             }
 
@@ -138,6 +137,31 @@ public class LLClass {
 
             // Increment Counter
             IncrementCounter();
+        }
+    }
+
+    //#####################################
+    //#####################################
+    // SPECIAL FUNCTIONS
+    //#####################################
+    //#####################################
+
+    // Removes Duplicate
+    public void RemoveDuplicates() {
+        Hashtable hstbNode = new Hashtable();
+        NodeClass objPrevious = null;
+
+        if (objHeadNode != null) {
+            NodeClass objIterator = objHeadNode.GetNext();
+            while (objIterator != null) {
+                if (hstbNode.containsKey(objIterator.GetData())) {
+                    objPrevious.SetNext(objIterator.GetNext());
+                } else {
+                    hstbNode.put(objIterator.GetData(), true);
+                    objPrevious = objIterator;
+                }
+                objIterator = objIterator.GetNext();
+            }
         }
     }
 
